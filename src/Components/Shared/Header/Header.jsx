@@ -6,7 +6,7 @@ const Header = () => {
             <NavLink to={'/'}>HOME</NavLink>
             <NavLink to={'/'}>CONTACT US</NavLink>
             <NavLink to={'/'}>DASHBOARD</NavLink>
-            <NavLink to={'/'}>OUR MENU</NavLink>
+            <NavLink to={'/ourmenue'}>OUR MENU</NavLink>
             <NavLink to={'/'}>OUR SHOP</NavLink>
         </div>
     </>

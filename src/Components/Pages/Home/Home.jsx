@@ -6,10 +6,14 @@ import Menu from './Menu/Menu';
 import Recommends from './Recommends/Recommends';
 import Feature from './Feature/Feature';
 import Reviews from './Reviews/Reviews';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     return (
         <div>
+             <Helmet>
+                <title>Bistro | Home</title>
+            </Helmet>
             <Banner></Banner>
             <OnlineOrder></OnlineOrder>
             <BistroBoss></BistroBoss>
