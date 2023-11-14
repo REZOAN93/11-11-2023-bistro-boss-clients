@@ -12,7 +12,7 @@ import SectionTitle from '../../SectionTitle/SectionTitle';
 
 const MenuPage = () => {
     const [menudata] = UseMenu()
-    const deserts = menudata.filter(na => na.category === "dessert")
+    const dessert = menudata.filter(na => na.category === "dessert")
     const salad = menudata.filter(na => na.category === "salad")
     const drinks = menudata.filter(na => na.category === "drinks")
     const popular = menudata.filter(na => na.category === "popular")
@@ -24,15 +24,15 @@ const MenuPage = () => {
             <Helmet><title>Bistro | Menu</title></Helmet>
             <Cover bgImg={bacgroundImage} menuTitle='OUR MENU' menuDescription='Would you like to try a dish?'></Cover>
             <SectionTitle heading="Don't miss" subheading="TODAY'S OFFER"></SectionTitle>
-            <MenuCategory arrayDAta={offered}></MenuCategory>
+            <MenuCategory arrayDAta={offered} title={"offered"}></MenuCategory>
             <Cover bgImg={bacgroundImage3} menuTitle='DESSERTS' menuDescription='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'></Cover>
-            <MenuCategory arrayDAta={deserts}></MenuCategory>
+            <MenuCategory arrayDAta={dessert} title={"dessert"}></MenuCategory>
             <Cover bgImg={bacgroundImage1} menuTitle='PIZZA' menuDescription='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'></Cover>
-            <MenuCategory arrayDAta={pizza}></MenuCategory>
+            <MenuCategory arrayDAta={pizza} title={"pizza"}></MenuCategory>
             <Cover bgImg={bacgroundImage2} menuTitle='SALADS' menuDescription='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'></Cover>
-            <MenuCategory arrayDAta={salad}></MenuCategory>
+            <MenuCategory arrayDAta={salad} title={"salad"}></MenuCategory>
             <Cover bgImg={bacgroundImage4} menuTitle='SOUPS' menuDescription='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'></Cover>
-            <MenuCategory arrayDAta={soup}></MenuCategory>
+            <MenuCategory arrayDAta={soup} title={"soup"}></MenuCategory>
         </div>
     );
 };
