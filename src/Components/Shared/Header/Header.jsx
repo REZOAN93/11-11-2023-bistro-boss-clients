@@ -1,6 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
 
 const Header = () => {
+    const { user, userSignOut } = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => {
+                // Sign-out successful.
+                navigate('/')
+            }).catch((error) => {
+                // An error happened.
+            });
+    }
+
     const navData = <>
         <div className=' flex gap-5 text-base font-bold'>
             <NavLink to={'/'}>HOME</NavLink>
@@ -8,6 +23,9 @@ const Header = () => {
             <NavLink to={'/'}>DASHBOARD</NavLink>
             <NavLink to={'/ourmenue'}>OUR MENU</NavLink>
             <NavLink to={'/order/salad'}>ORDER FOOD</NavLink>
+            {
+                user ? <NavLink to={'/profile'}>PROFILE</NavLink> : ''
+            }
         </div>
     </>
     return (
@@ -32,7 +50,15 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    !user ? <>
+                        <Link className='btn bg-zinc-100 hover:bg-black btn-outline mr-5' to={'/login'}>Login</Link>
+                        <Link className='btn bg-zinc-100 hover:bg-black btn-outline' to={'/register'}>Register</Link>
+                    </> : <>
+                        <img className=' border-2 p-1 rounded-full w-12 h-12 mr-3' src={user.photoURL} alt="" />
+                        <button className='btn' onClick={handleSignOut}>SignOut</button>
+                    </>
+                }
             </div>
         </div>
     );
