@@ -1,13 +1,40 @@
 import { FaCross, FaRemoveFormat } from 'react-icons/fa';
 import useCards from '../../../Hooks/useCards';
 import { RiDeleteBin5Line } from "react-icons/ri";
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const Cart = () => {
-    const [cart] = useCards()
+    const [cart, refetch] = useCards()
+    const axiosSecure = useAxiosSecure()
     const totalPrice = cart.reduce((total, items) => total + items.price, 0)
     console.log(cart, totalPrice)
     const handleDelete = (id) => {
-        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/carts/${id}`)
+                    .then(res => {
+                        if (res?.data?.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            refetch()
+                        }
+                    })
+
+            }
+
+        });
     }
     return (
         <div>
