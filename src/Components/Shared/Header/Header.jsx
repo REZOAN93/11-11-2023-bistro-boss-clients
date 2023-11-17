@@ -1,10 +1,13 @@
 import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { FaCartPlus } from "react-icons/fa";
+import useCards from '../../Hooks/useCards';
 
 const Header = () => {
     const { user, userSignOut } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [cart] = useCards()
 
     const handleSignOut = () => {
         userSignOut()
@@ -24,7 +27,17 @@ const Header = () => {
             <NavLink to={'/ourmenue'}>OUR MENU</NavLink>
             <NavLink to={'/order/salad'}>ORDER FOOD</NavLink>
             {
-                user ? <NavLink to={'/profile'}>PROFILE</NavLink> : ''
+                user ? <>
+                    <NavLink to={'/profile'}>PROFILE</NavLink>
+                    <NavLink to={'/cart'}>
+                        <button className=' flex'>
+                            CART
+                            <FaCartPlus className=' text-3xl' />
+                            <div className="badge badge-secondary ml-1">+{cart.length}</div>
+                        </button>
+                    </NavLink>
+                </>
+                    : ''
             }
         </div>
     </>

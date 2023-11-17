@@ -75,13 +75,13 @@ const Login = () => {
                         <div className="form-control mt-5 grid grid-cols-2 gap-6">
                             <LoadCanvasTemplate />
                             <input onBlur={handlecaptachcheck} type="text" placeholder="Type Here" name='captcha' className="input input-bordered" />
-
                         </div>
                         <div className="form-control mt-2">
                         </div>
                         <div className="form-control  mt-5">
                             <p>{error}</p>
-                            <button disabled={disabled} className="btn capitalize hover:bg-[#D1A054]  text-white bg-orange-300 border-none">Sign In</button>
+                            {/* disabled={disabled} need to do it */}
+                            <button disabled={false} className="btn capitalize hover:bg-[#D1A054]  text-white bg-orange-300 border-none">Sign In</button>
                         </div>
                         <div className="form-control  mt-2 text-center">
                             <p className=' text-[#D1A054]'>New here? <Link to={'/register'} className=' font-bold'>Create a New Account</Link></p>
