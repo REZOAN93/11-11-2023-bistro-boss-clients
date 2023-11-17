@@ -29,7 +29,7 @@ const Header = () => {
             {
                 user ? <>
                     <NavLink to={'/profile'}>PROFILE</NavLink>
-                    <NavLink to={'/cart'}>
+                    <NavLink to={'/dashboard/cart'}>
                         <button className=' flex'>
                             CART
                             <FaCartPlus className=' text-3xl' />
