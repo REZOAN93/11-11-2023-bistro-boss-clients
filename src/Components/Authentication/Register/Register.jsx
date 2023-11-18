@@ -6,10 +6,13 @@ import imgGoogle from '../../../assets/others/google.png'
 import { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
 import { useForm } from 'react-hook-form';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import SocialLogin from '../SocialLogin';
 
 
 const Register = () => {
-    const { createUserEmail, userSignOut,updateUser } = useContext(AuthContext)
+    const axiosPublic = useAxiosPublic()
+    const { createUserEmail, userSignOut, updateUser } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const { register, handleSubmit, watch, formState: { errors }, } = useForm()
@@ -19,11 +22,20 @@ const Register = () => {
         createUserEmail(data.email, data.password)
             .then((userCredential) => {
                 // Signed up 
-                const user = userCredential.user;
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                }
+                // save user in the dataBase
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data?.insertedId) {
+                            userSignOut()
+                            handleUpdateUser(data.name, data.photoURl);
+                            navigate('/login')
+                        }
+                    })
                 // ...
-                userSignOut()
-                handleUpdateUser(data.name, data.photoURl);
-                navigate('/login')
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -95,16 +107,16 @@ const Register = () => {
                         <div className="form-control  mt-5">
                             <button className="btn capitalize hover:bg-[#D1A054]  text-white bg-orange-300 border-none">Sign Up</button>
                         </div>
-                        <div className="form-control  mt-2 text-center">
+                    </form>
+                        <div className="mt-2 text-center">
                             <p className=' text-[#D1A054]'>Already registered? <Link to={'/login'} className=' font-bold'>Go to log in</Link></p>
                             <p className='mt-1'>Or sign up with</p>
                             <div className=' flex items-center justify-center gap-3'>
                                 <img className=' btn border rounded-full p-3' src={imgfacebook} alt="" />
                                 <img className=' btn border rounded-full p-3' src={imggithub} alt="" />
-                                <img className=' btn border rounded-full p-3' src={imgGoogle} alt="" />
+                                <SocialLogin></SocialLogin>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div className="text-center lg:text-left p-5">
                     <img src={img1} alt="" />

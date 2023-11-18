@@ -8,6 +8,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Context/AuthProvider';
 import { replace } from 'formik';
+import SocialLogin from '../SocialLogin';
 
 const Login = () => {
     const { signinUser } = useContext(AuthContext)
@@ -83,16 +84,16 @@ const Login = () => {
                             {/* disabled={disabled} need to do it */}
                             <button disabled={false} className="btn capitalize hover:bg-[#D1A054]  text-white bg-orange-300 border-none">Sign In</button>
                         </div>
+                    </form>
                         <div className="form-control  mt-2 text-center">
                             <p className=' text-[#D1A054]'>New here? <Link to={'/register'} className=' font-bold'>Create a New Account</Link></p>
                             <p className='mt-1'>Or sign in with</p>
                             <div className=' flex items-center justify-center gap-3'>
                                 <img className=' btn border rounded-full p-3' src={imgfacebook} alt="" />
                                 <img className=' btn border rounded-full p-3' src={imggithub} alt="" />
-                                <img className=' btn border rounded-full p-3' src={imgGoogle} alt="" />
+                                <SocialLogin></SocialLogin>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
