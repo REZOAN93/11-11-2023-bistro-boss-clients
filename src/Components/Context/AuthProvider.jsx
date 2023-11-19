@@ -43,10 +43,10 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
             if (cuser) {
                 // get Token
-                const userDAta = { name: cuser.email }
+                const userDAta = { email: cuser.email }
                 axiosPublic.post('/jwt', userDAta)
                     .then(res => {
-                        if (res.data.token) {
+                        if (res.data?.token) {
                             localStorage.setItem('accessToken', res.data.token)
                         }
                     })
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
             }
         });
         return () => { return unSubscribe() }
-    }, [auth, axiosPublic])
+    }, [axiosPublic])
 
 
     const authInfo = { createUserEmail, createUserWithGoogle, user, loading, userSignOut, signinUser, updateUser }

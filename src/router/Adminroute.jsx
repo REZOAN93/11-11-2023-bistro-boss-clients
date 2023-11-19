@@ -1,13 +1,13 @@
-import { useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../Components/Context/AuthProvider";
-import useAuth from "../Components/Hooks/useAuth";
+import React from 'react';
+import useAdmin from '../Components/Hooks/useAdmin';
+import useAuth from '../Components/Hooks/useAuth';
+import { Navigate, useLocation } from 'react-router-dom';
 
-
-const PrivateRoute = ({ children }) => {
+const Adminroute = ({children}) => {
     const { user, loading } = useAuth();
+    const [AreYouAdmin, isAdminLoading] = useAdmin()
     const location = useLocation();
-    if (loading) {
+    if (loading || isAdminLoading) {
         return (
             <div className="py-32 w-full flex justify-center">
                 <span className="loading loading-dots loading-xs"></span>
@@ -17,11 +17,10 @@ const PrivateRoute = ({ children }) => {
             </div>
         );
     }
-    if (user) {
+    if (user && AreYouAdmin) {
         return children;
     }
-
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 };
 
-export default PrivateRoute;
+export default Adminroute;

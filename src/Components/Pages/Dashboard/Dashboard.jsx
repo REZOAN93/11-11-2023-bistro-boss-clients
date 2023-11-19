@@ -2,16 +2,18 @@ import React from 'react';
 import { FaBookmark, FaCalendar, FaHome, FaList, FaSearch, FaShoppingCart, FaVoicemail } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
 import { MdEmail } from "react-icons/md";
+import useAdmin from '../../Hooks/useAdmin';
 
 const Dashboard = () => {
     //TODO get is admin value from the data Base
-    const isAdmin = true;
+    const [AreYouAdmin] = useAdmin();
+    // const AreYouAdmin=true;
     return (
         <div className='flex'>
             <div className=' w-64 min-h-screen bg-orange-400'>
                 <ul className='menu p-4 space-y-3'>
                     {
-                        isAdmin ? <>
+                        AreYouAdmin ? <>
                             <li><NavLink to="/dashboard/adminHome"><FaHome></FaHome> Admin Home</NavLink></li>
                             <li><NavLink to="/dashboard/additems"><FaCalendar></FaCalendar> Add Items</NavLink></li>
                             <li><NavLink to="/dashboard/manageItems"><FaCalendar></FaCalendar> Manage Items</NavLink></li>

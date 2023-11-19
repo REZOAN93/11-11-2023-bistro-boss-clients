@@ -11,6 +11,8 @@ import Profile from "../Components/Authentication/Profile";
 import Dashboard from "../Components/Pages/Dashboard/Dashboard";
 import Cart from "../Components/Pages/Dashboard/Cart/Cart";
 import AllUser from "../Components/Pages/Dashboard/AllUsers/AllUser";
+import Additems from "../Components/Pages/Dashboard/AddItems/Additems";
+import Adminroute from "./Adminroute";
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +57,11 @@ export const router = createBrowserRouter([
       // admin routes
       {
         path: 'allusers',
-        element: <AllUser></AllUser>
+        element: <Adminroute><AllUser></AllUser></Adminroute>
+      },
+      {
+        path: 'additems',
+        element: <Adminroute><Additems></Additems></Adminroute>
       }
     ]
   }
