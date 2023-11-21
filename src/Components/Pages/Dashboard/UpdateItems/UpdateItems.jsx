@@ -1,13 +1,16 @@
-import { useForm } from 'react-hook-form';
-import SectionTitle from '../../../SectionTitle/SectionTitle';
+import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
-import Swal from 'sweetalert2';
+import { useForm } from 'react-hook-form';
+import SectionTitle from '../../../SectionTitle/SectionTitle';
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_Api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
-const Additems = () => {
-    const { register, handleSubmit,reset } = useForm()
+const UpdateItems = () => {
+    const loadedData = useLoaderData()
+    console.log(loadedData._id)
+    const { register, handleSubmit, reset } = useForm()
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
 
@@ -20,7 +23,7 @@ const Additems = () => {
                 'content-type': 'multipart/form-data'
             }
         })
-        console.log(res.data)
+        
         if (res?.data?.success) {
             // console.log(res.data?.data.display_url)
             // console.log(data)
@@ -31,15 +34,15 @@ const Additems = () => {
                 image: res.data?.data.display_url,
                 price: parseFloat(data.price)
             }
-            console.log(menuItem)
-            const menuRes = await axiosSecure.post('/additems', menuItem);
+           
+            const menuRes = await axiosSecure.patch(`/updateItems/${loadedData._id}`, menuItem);
             console.log(menuRes.data)
-            if (menuRes.data) {
+            if (menuRes.data?.modifiedCount>0) {
                 reset()
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Your items has been added",
+                    title: "Your items has been updated",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -48,21 +51,21 @@ const Additems = () => {
     }
     return (
         <div className='my-10'>
-            <SectionTitle heading="add an Item" subheading="What's new?"></SectionTitle>
+            <SectionTitle heading="Update an Item" subheading="What's new?"></SectionTitle>
             <div className=' px-20'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text font-bold">Recipe name*</span>
                         </label>
-                        <input type="text" placeholder="Recipe name" {...register("name", { required: true })} className="input input-bordered" />
+                        <input type="text" defaultValue={loadedData.name} placeholder="Recipe name" {...register("name", { required: true })} className="input input-bordered" />
                     </div>
                     <div className=' grid grid-cols-2 gap-4 mb-3'>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Category*</span>
                             </label>
-                            <select className="input input-bordered" {...register("category")}>
+                            <select defaultValue={loadedData.category} className="input input-bordered" {...register("category")}>
                                 <option value="salad<">salad</option>
                                 <option value="drinks">drinks</option>
                                 <option value="popular">popular</option>
@@ -76,14 +79,14 @@ const Additems = () => {
                             <label className="label">
                                 <span className="label-text">Price*</span>
                             </label>
-                            <input type="number" placeholder="Price" {...register("price", { required: true })} className="input input-bordered" />
+                            <input type="number" defaultValue={loadedData.price} placeholder="Price" {...register("price", { required: true })} className="input input-bordered" />
                         </div>
                     </div>
                     <div className="form-control mb-2">
                         <label className="label">
                             <span className="label-text font-bold">Recipe Details*</span>
                         </label>
-                        <textarea type="text" placeholder="Recipe Details" {...register("recipe", { required: true })} className="textarea textarea-bordered h-32" />
+                        <textarea type="text" defaultValue={loadedData.recipe} placeholder="Recipe Details" {...register("recipe", { required: true })} className="textarea textarea-bordered h-32" />
                     </div>
                     <input {...register("image", { required: true })} type="file" className="file-input w-full" />
                     <input className=' btn' type="submit" value="Add Item" />
@@ -93,4 +96,4 @@ const Additems = () => {
     );
 };
 
-export default Additems;
+export default UpdateItems;
