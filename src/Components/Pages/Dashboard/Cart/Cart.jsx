@@ -3,6 +3,7 @@ import useCards from '../../../Hooks/useCards';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const [cart, refetch] = useCards()
@@ -41,7 +42,10 @@ const Cart = () => {
             <div className=' p-8 flex justify-evenly'>
                 <p className=' text-5xl'>Total Orders: {cart.length}</p>
                 <p className=' text-5xl'>Total Price:{totalPrice}</p>
-                <button className='btn btn-primary'>Pay</button>
+                {
+                    cart.length ? <Link to={'/dashboard/payment'}><button className='btn btn-primary'>Pay</button></Link> : <button disabled className='btn btn-primary'>Pay</button>
+                }
+
             </div>
             <div className="overflow-x-auto">
                 <table className="table">

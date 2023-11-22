@@ -17,6 +17,7 @@ const Dashboard = () => {
                             <li><NavLink to="/dashboard/adminHome"><FaHome></FaHome> Admin Home</NavLink></li>
                             <li><NavLink to="/dashboard/additems"><FaCalendar></FaCalendar> Add Items</NavLink></li>
                             <li><NavLink to="/dashboard/manageItems"><FaCalendar></FaCalendar> Manage Items</NavLink></li>
+                            <li><NavLink to="/dashboard/cart"><FaShoppingCart></FaShoppingCart> My Cart</NavLink></li>
                             <li><NavLink to="/dashboard/manageBookings"><FaShoppingCart></FaShoppingCart> Manage Bookings</NavLink></li>
                             <li><NavLink to="/dashboard/allusers"><FaCalendar></FaCalendar> All Users</NavLink></li>
                         </> : <>
@@ -24,6 +25,7 @@ const Dashboard = () => {
                             <li><NavLink to="/dashboard/reservation"><FaCalendar></FaCalendar> Reservation</NavLink></li>
                             <li><NavLink to="/dashboard/paymentinfo"><FaCalendar></FaCalendar> Payment History</NavLink></li>
                             <li><NavLink to="/dashboard/cart"><FaShoppingCart></FaShoppingCart> My Cart</NavLink></li>
+                           
                             <li><NavLink to="/dashboard/review"><FaCalendar></FaCalendar> Add Review</NavLink></li>
                             <li><NavLink to="/dashboard/review"><FaList></FaList> My Booking</NavLink></li>
                         </>

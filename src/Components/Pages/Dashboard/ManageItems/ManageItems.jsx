@@ -28,7 +28,7 @@ const ManageItems = () => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/menu/${id}`)
                     .then(res => {
-                        if (res?.data?.deletedCount) {
+                        if (res?.data?.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
