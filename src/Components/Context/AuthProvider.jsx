@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/auth.user
             setUser(cuser)
-            setLoading(false)
+
             if (cuser) {
                 // get Token
                 const userDAta = { email: cuser.email }
@@ -48,12 +48,14 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         if (res.data?.token) {
                             localStorage.setItem('accessToken', res.data.token)
+                            setLoading(false)
                         }
                     })
             }
             else {
                 // do Somethings remove token (if token store in the clients side )
                 localStorage.removeItem('accessToken')
+                setLoading(false)
             }
         });
         return () => { return unSubscribe() }

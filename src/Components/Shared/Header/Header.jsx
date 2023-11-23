@@ -3,9 +3,11 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { FaCartPlus } from "react-icons/fa";
 import useCards from '../../Hooks/useCards';
+import useAdmin from '../../Hooks/useAdmin';
 
 const Header = () => {
     const { user, userSignOut } = useContext(AuthContext)
+    const [AreYouAdmin] = useAdmin()
     const navigate = useNavigate()
     const [cart] = useCards()
 
@@ -18,12 +20,20 @@ const Header = () => {
                 // An error happened.
             });
     }
+    console.log('user:', user);
+    console.log('AreYouAdmin:', AreYouAdmin);
 
     const navData = <>
         <div className=' flex gap-5 text-base font-bold'>
             <NavLink to={'/'}>HOME</NavLink>
             <NavLink to={'/'}>CONTACT US</NavLink>
-            <NavLink to={'/'}>DASHBOARD</NavLink>
+
+            {user && AreYouAdmin ? (
+                <NavLink to={'/dashboard/adminHome'}>DASHBOARD</NavLink>
+            ) : user ? (
+                <NavLink to={'/dashboard/userhome'}>DASHBOARD</NavLink>
+            ) : null}
+            
             <NavLink to={'/ourmenue'}>OUR MENU</NavLink>
             <NavLink to={'/order/salad'}>ORDER FOOD</NavLink>
             {
