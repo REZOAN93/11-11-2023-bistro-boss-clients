@@ -12,9 +12,9 @@ import img1 from '../../../../assets/img.png'
 
 const Reviews = () => {
     const [data, setData] = useState([])
-    
+
     useEffect(() => {
-        fetch('http://localhost:5000/reviews')
+        fetch('https://11-11-2023-bistro-boss-server.vercel.app/reviews')
             .then(res => res.json())
             .then(datas => {
                 setData(datas)
@@ -23,7 +23,7 @@ const Reviews = () => {
     console.log(data)
     const StarDrawing =
         <path
-          d="M398.799,141.794c-43.394-3.977-86.776-6.52-130.158-8.418C258.835,99.302,242.633-4.751,193.173,0.169
+            d="M398.799,141.794c-43.394-3.977-86.776-6.52-130.158-8.418C258.835,99.302,242.633-4.751,193.173,0.169
             c-39.659,3.944-61.012,90.515-73.08,130.306c-32.333,0.283-64.692,1.062-97.09,2.416c-14.735,0.615-27.908,17.9-18.207,31.732
             c19.157,27.316,44.198,49.389,70.487,70.103c-11.83,38.196-21.665,77.499-29.759,116.53c-3.504,16.91-5.31,32.212,3.881,44.82
             c2.411,9.987,12.018,18.494,22.429,18.029c51.805-2.313,93.872-44.738,133.991-77.119c33.156,26.317,66.309,52.64,99.475,78.951
@@ -34,7 +34,7 @@ const Reviews = () => {
         itemShapes: StarDrawing,
         activeFillColor: '#CD9003',
         inactiveFillColor: '#A1A1A1',
-      };
+    };
     return (
         <div className=' max-w-6xl mx-auto mb-10'>
             <SectionTitle
@@ -61,9 +61,9 @@ const Reviews = () => {
                     data.map(na => <SwiperSlide
                         key={na._id}
                         className=' text-center px-32 pb-20 pt-10'>
-                         <div className='flex justify-center mb-5 '>
-                         <Rating style={{ maxWidth: 180 }} itemStyles={customStyles}  value={na.rating}  readOnly />
-                         </div>
+                        <div className='flex justify-center mb-5 '>
+                            <Rating style={{ maxWidth: 180 }} itemStyles={customStyles} value={na.rating} readOnly />
+                        </div>
                         <figure className='flex mb-5 mt-5 justify-center'>
                             <img className='w-16' src={img1} alt="" />
                         </figure>

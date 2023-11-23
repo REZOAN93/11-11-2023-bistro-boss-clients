@@ -5,7 +5,7 @@ import RecommendFood from './RecommendFood';
 const Recommends = () => {
     const [menudata, setMenuData] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/menu')
+        fetch('https://11-11-2023-bistro-boss-server.vercel.app/menu')
             .then(res => res.json())
             .then(data => {
                 const popular = data.filter(na => na.category == 'salad')
